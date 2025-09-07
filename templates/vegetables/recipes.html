@@ -1,0 +1,45 @@
+{% extends "base.html" %} 
+
+{% block start %}
+<div class="container mt-5">
+    <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+         <h2>Add Recipe</h2>
+            <div class="mb-3">
+                <label for="recipeName" class="form-label">Recipe Name</label>
+                <input name="recipeName" type="text" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="recipeDescription" class="form-label">Description</label>
+                <input name="recipeDescription" class="form-control" id="recipeDescription">
+            </div>
+            <div class="mb-3">
+                <label for="recipeImage" class="form-label">Recipe Image</label>
+                <input name="recipeImage" type="file" class="form-control" id="recipeImage">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <table class="mx-auto shadow-lg">
+            <tr>
+                <th>Sr No</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Image</th>
+            </tr>
+            {% for recipe in recipes %}
+                <tr> 
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{recipe.name}}</td>
+                    <td style="width: 400px; height:200px">{{recipe.description}}</td>
+                    <td>
+                        <img src="/media/{{recipe.recipe_image}}" alt="" style="width: 320px; height: 240px;">
+                    </td>
+                    <td>
+                        <a href="delete_recipe/{{recipe.id}}" class="btn btn-danger">Button</a>
+                    </td> 
+                </tr>
+            {% endfor %}
+    </table>
+</div>
+{% endblock %}
