@@ -23,6 +23,7 @@ from django.conf.urls.static import static
 from home.views import *
 from vegetables.views import *
 from accounts.views import *
+from management_app.views import *
 
 
 urlpatterns = [
@@ -36,6 +37,7 @@ urlpatterns = [
     path('login', login_page, name='login'),
     path('logout', logout_page, name='logout'),
     path('register', register_page, name='register'),
+    path('get_students', get_students, name='get_students'),
 ]
 
 if settings.DEBUG:
