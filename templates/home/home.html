@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+
+{% block start %}
+    <h1>This is Homepage</h1>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+        Magni error nemo architecto, nostrum aperiam ipsam iusto repellat, maxime illum enim quisquam dicta. Atque, magni vero quia iste animi eaque ipsum.
+    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos nesciunt perferendis hic, vitae cupiditate quae. Reiciendis, corrupti nemo quos, a provident, 
+    beatae quia voluptas quam blanditiis deleniti explicabo dolore esse.lore Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit, illum tempore! Facilis, 
+    ex et magni ut quae cupiditate mollitia accusantium quas amet laboriosam earum dicta voluptate sed magnam molestias quasi!</p>
+    
+    <table>
+            <tr>
+                <td>Sr No</td>
+                <td>Name</td>
+                <td>Age</td>
+                <td>City</td>
+                <td>Can Vote</td>
+            </tr>
+            {% for people in peoples %}
+                <tr> 
+                    <td>{{forloop.counter}}</td>
+                    <td>{{people.name}}</td>
+                    <td>{{people.age}}</td>
+                    <td>{{people.city}}</td>
+                    <td>
+                        {% if people.age >= 18 %}
+                            Yes
+                        {% else %}
+                            No
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+    </table>
+
+    <a href="/about">About</a> |
+    <a href="/contact">Contact us</a>
+
+{% endblock %}
