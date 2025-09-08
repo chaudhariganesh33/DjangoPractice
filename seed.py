@@ -26,3 +26,16 @@ def generate_students(n):
             student_email=fake_email,
             student_address=fake_address
         )
+
+
+def generate_marks(n):
+    students = Students.objects.all()
+
+    for student in students:
+        subjects = Subjects.objects.all()
+        for subject in subjects:
+            StudentMarks.objects.create(
+                student=student,
+                subject=subject,
+                marks = random.randint(0, 100)
+            )

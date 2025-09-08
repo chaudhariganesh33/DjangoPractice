@@ -31,3 +31,25 @@ class Students(models.Model):
     class Meta:
         ordering = ['student_name']
         verbose_name = 'Student Information'
+
+
+class Subjects(models.Model):
+    subject_name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.subject_name
+    
+    class Meta:
+        ordering = ['subject_name']
+
+
+class StudentMarks(models.Model):
+    student = models.ForeignKey(Students, related_name='student', on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subjects, on_delete=models.CASCADE)
+    marks = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.student.student_name} - {self.subject.subject_name} : {self.marks}"
+    
+    class Meta:
+        unique_together = ['student', 'subject']
