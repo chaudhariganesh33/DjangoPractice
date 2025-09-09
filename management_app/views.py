@@ -31,3 +31,9 @@ def get_students(request):
     page_number = request.GET.get('page')
     page_object = paginator.get_page(page_number)
     return render(request, 'management/students.html', context={'students': page_object})
+
+
+def see_marks(request, student_id):
+    studentmarks = StudentMarks.objects.filter(student__student_id__student_id = student_id)
+    total_marks = studentmarks.aggregate(total_marks = Sum('marks'))
+    return render(request, 'management/marks.html', context={'marks': studentmarks, 'total_marks': total_marks})

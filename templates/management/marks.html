@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+
+{% block start %}
+<div class="container mt-5">
+    <table class="table table-striped mx-auto shadow-lg">
+        <tbody>
+            <h1>{{marks.first.student}}</h1>
+            <th>#</th>
+            <th>Subject</th>
+            <th>Marks</th>
+            {% for entry in marks %}
+                <tr>
+                    <th>{{forloop.counter}}</th>
+                    <td>{{entry.subject.subject_name}}</td>
+                    <td>{{entry.marks}}</td>
+                </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+    <h3>Total: {{total_marks.total_marks}}</h3>
+    <h3>Rank: {{marks.first.student.reportcard.first.student_rank}}</h3>
+    <h3>Result Date: {{marks.first.student.reportcard.first.date_of_report_card}}</h3>
+</div>
+
+{% endblock %}

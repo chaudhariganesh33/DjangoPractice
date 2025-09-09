@@ -44,7 +44,7 @@ class Subjects(models.Model):
 
 
 class StudentMarks(models.Model):
-    student = models.ForeignKey(Students, related_name='student', on_delete=models.CASCADE)
+    student = models.ForeignKey(Students, related_name='studentmarks', on_delete=models.CASCADE)
     subject = models.ForeignKey(Subjects, on_delete=models.CASCADE)
     marks = models.IntegerField()
 
@@ -53,3 +53,17 @@ class StudentMarks(models.Model):
     
     class Meta:
         unique_together = ['student', 'subject']
+
+
+class ReportCards(models.Model):
+    student = models.ForeignKey(Students, related_name='reportcard', on_delete=models.CASCADE)
+    student_rank = models.IntegerField()
+    date_of_report_card = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.student.student_name}"
+    
+    class Meta:
+        unique_together = ['student_rank', 'date_of_report_card']
+        verbose_name = 'Report Card'
+        ordering = ['student_rank']
