@@ -4,13 +4,30 @@ from management_app.models import *
 from django.db.models import Sum
 
 
+def generate_departments():
+    departments = ['Computer', 'Electrical', 'Civil', 'IT', 'Mechanical']
+
+    for department in departments:
+        dep_obj = Department.objects.create(department_name = department)
+        dep_obj.save()
+
+
+def generate_subjects():
+    subjects_list = ['C++', 'python', 'java', 'Maths', 'Graphics']
+
+    for subject in subjects_list:
+        sub_obj = Subjects.objects.create(subject_name = subject)
+        sub_obj.save()
+
+
+
 def generate_students(n):
     fake = Faker()
     departments = list(Department.objects.all())
 
     for _ in range(n):
         department = random.choice(departments)
-        student_id = f'STU-0{random.randint(3, 100)}'
+        student_id = f'STU-0{random.randint(1, 100)}'
         
         fake_name = fake.name()
         fake_email = fake.email()
@@ -29,7 +46,7 @@ def generate_students(n):
         )
 
 
-def generate_marks(n):
+def generate_marks():
     students = Students.objects.all()
 
     for student in students:
@@ -43,8 +60,7 @@ def generate_marks(n):
 
 
 def generate_reportcards():
-    students = Students.objects.all()
-    ranks = Students.objects.annotate(total_marks=Sum('student__marks')).order_by('-total_marks')
+    ranks = Students.objects.annotate(total_marks=Sum('studentmarks__marks')).order_by('-total_marks')
     i = 1
     for rank in ranks:
         ReportCards.objects.create(
